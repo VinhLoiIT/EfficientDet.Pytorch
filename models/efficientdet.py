@@ -25,7 +25,11 @@ class EfficientDet(nn.Module):
                  threshold=0.5,
                  iou_threshold=0.5):
         super(EfficientDet, self).__init__()
-        self.efficientnet = EfficientNet.from_pretrained(MODEL_MAP[network])
+        # self.efficientnet = EfficientNet.from_pretrained(MODEL_MAP[network])
+        self.efficientnet = EfficientNet.from_name(MODEL_MAP[network],
+                                                   override_params={
+                                                       'num_classes': num_classes
+                                                   })
         self.is_training = is_training
         self.BIFPN = BIFPN(in_channels=self.efficientnet.get_list_features()[-5:],
                                 out_channels=W_bifpn,

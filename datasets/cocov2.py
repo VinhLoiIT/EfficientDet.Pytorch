@@ -32,7 +32,7 @@ class CocoDataset(Dataset):
         self.set_name = set_name
         self.transform = transform
 
-        self.coco      = COCO(os.path.join(self.root_dir, 'annotations', 'instances_' + self.set_name + '.json'))
+        self.coco      = COCO(os.path.join(self.root_dir, 'train_traffic_sign_dataset.json'))
         self.image_ids = self.coco.getImgIds()
 
         self.load_classes()
@@ -78,7 +78,7 @@ class CocoDataset(Dataset):
 
     def load_image(self, image_index):
         image_info = self.coco.loadImgs(self.image_ids[image_index])[0]
-        path       = os.path.join(self.root_dir, 'images', self.set_name, image_info['file_name'])
+        path       = os.path.join(self.root_dir, 'images', image_info['file_name'])
         img = cv2.imread(path)
 
         if len(img.shape) == 2:
